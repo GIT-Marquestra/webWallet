@@ -6,6 +6,9 @@ import { generateMnemonic } from "bip39";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import copyToClipboard from "@/actions/copy";
+import sol from "@/assets/solana.svg"
+import eth from "@/assets/ethereum.svg"
+import Image from "next/image";
 
 export default function Home() {
   const [mnemonicArray, setMnemonicArray] = useState<string[]>([]);
@@ -31,14 +34,17 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200 flex flex-col items-center justify-center space-y-6 p-6">
-      <h1 className="text-4xl font-bold mb-8 text-center">Generate Your Wallet</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">SolEth Wallet</h1>
       {mnemonic.length === 0 ? (
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-4xl flex font-bold mb-8 text-center"><span><Image src={sol} alt="sol" className="size-9"></Image></span>Generate Your Wallet<span><Image src={eth} alt="eth" className="size-9"></Image></span></h1>
         <button
           onClick={handleGenerate}
           className="px-6 py-3 bg-blue-700 text-white rounded-lg shadow-lg hover:bg-blue-600 transition-all"
         >
           Generate Mnemonic
         </button>
+        </div>
       ) : (
         <div className="space-y-6 w-full max-w-lg">
           {/* Copy and Eye Toggle Section */}
@@ -77,11 +83,11 @@ export default function Home() {
       {mnemonicArray.length !== 0 && (
         <div className="w-full max-w-4xl space-y-6">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold mb-4 text-center">Solana Wallet</h2>
+            <span className="text-3xl flex font-bold mb-4 text-center justify-center items-center"><Image src={sol} alt="solana" className="size-9 m-2"></Image>Solana Wallet</span>
             <SolanaLogic mnemonic={mnemonic} />
           </div>
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold mb-4 text-center">Ethereum Wallet</h2>
+            <span className="text-3xl flex font-bold mb-4 text-center justify-center items-center"><Image src={eth} alt="ethereum" className="size-9 m-2"></Image>Ethereum Wallet</span>
             <EtherLogic mnemonic={mnemonic} />
           </div>
         </div>
